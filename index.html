@@ -101,6 +101,8 @@
     </div>
   </div>
   <div id="game"></div>
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="./jquery.imgexplode.min.js "></script>
   <script>
     // 產生 12 張卡片
     for (let i = 0; i < 12; i++) {
@@ -112,9 +114,11 @@
       `)
     }
 
+    
+
     // 決定每張的數字
     $('.card').each(function (index) {
-      const number = index % 8 + 1
+      const number = index % 6 + 1
       console.log(index, number)
       $(this).find('.card-front').css('background-image', `url(./img/${number}-f.png)`)
       $(this).attr('data-number', number)
@@ -147,10 +151,11 @@
         if (
           $('.card:not(.card-close)').eq(0).attr('data-number') ===
           $('.card:not(.card-close)').eq(1).attr('data-number')
-        ) {
-          $('.card:not(.card-close)').addClass('card-ok')
-          $('.card:not(.card-close)').fadeTo(1000, 0)
+          ) {
           $('.hp .blood:First').fadeTo(1000, 0)
+          $('.card:not(.card-close)').addClass('card-ok')
+          // $('.card:not(.card-close)').fadeTo(1000, 0)
+          $('.card:not(.card-close)').addClass('.boom')
         }
 
         setTimeout(function () {
@@ -163,6 +168,31 @@
         }, 1000)
       }
     })
+
+    // 爆炸
+    var $target = $(".boom");
+
+        function explode() {
+            $target.explodeRestore();
+            setTimeout(function () {
+                $target.explode({
+                    maxWidth: 15,
+                    minWidth: 5,
+                    radius: 231,
+                    release: false,
+                    recycle: false,
+                    explodeTime: 320,
+                    canvas: true,
+                    round: false,
+                    maxAngle: 360,
+                    gravity: 10,
+                    groundDistance: 150,
+                });
+            }, 300)
+        }
+        explode();
+
+    
   </script>
 </body>
 </html>
